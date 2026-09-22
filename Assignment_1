@@ -1,0 +1,130 @@
+704 :-
+
+class Solution {
+public:
+    int search(vector<int>& nums, int target) {
+        // Set the left and right boundaries
+        int left = 0, right = int(nums.size()) - 1;
+        
+        // Under this condition
+        while (left <= right) {
+            // Get the middle index and the middle value.
+            int mid = left + (right - left) / 2;
+            
+            // Case 1, return the middle index.
+            if (nums[mid] == target) {
+                return mid;
+            } 
+            // Case 2, discard the smaller half.
+            else if (nums[mid] < target) {
+                left = mid + 1;   
+            } 
+            // Case 3, discard the larger half.
+            else {
+                right = mid - 1;
+            }
+        }
+        
+        // If we finish the search without finding target, return -1.
+        return -1;
+    }
+};
+
+
+35 :-
+
+class Solution {
+    public int searchInsert(int[] nums, int target) {
+        int start = 0;
+        int end = nums.length-1;
+
+        while (start <= end) {
+            int mid = start + (end-start)/2;
+            if (nums[mid] == target) return mid;
+            else if (nums[mid] > target) end = mid-1;
+            else start = mid+1;
+        }
+
+        return start;
+    }
+}
+
+
+74 :-
+
+class Solution {
+    public boolean searchMatrix(int[][] matrix, int target) {
+        int m = matrix.length;
+        int n = matrix[0].length;
+        int left = 0, right = m * n - 1;
+
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            int mid_val = matrix[mid / n][mid % n];
+
+            if (mid_val == target)
+                return true;
+            else if (mid_val < target)
+                left = mid + 1;
+            else
+                right = mid - 1;
+        }
+        return false;
+    }
+}
+
+
+33 :-
+
+class Solution {
+    public int search(int[] nums, int target) {
+        int n = nums.length;
+        int lo = 0, hi = n - 1;
+
+        while (lo < hi) {
+            int mid = (lo + hi) / 2;
+            
+            if (nums[mid] > nums[n - 1]) lo = mid + 1;
+            else hi = mid;
+        }
+
+        int rot = lo;
+        lo = 0; hi = n - 1;
+
+        while (lo <= hi) {
+            int mid = (lo + hi) / 2;
+            int real = (mid + rot) % n;
+
+            if (nums[real] == target)
+                return real;
+            
+            if (nums[real] < target) lo = mid + 1;
+            else hi = mid - 1;
+        }
+
+        return -1;
+    }
+}
+
+
+162 :-
+
+class Solution {
+    public int findPeakElement(int[] nums) {
+
+        int l=0;
+        int r=nums.length-1;
+
+        while(l<r){
+            int mid=l+(r-l)/2;
+
+            if(nums[mid]<nums[mid+1]){
+                l=mid+1;
+            }
+
+            else r=mid;
+
+        }
+        return l;
+    }
+}
